@@ -5,8 +5,10 @@ import Controls from './Controls';
 import DanceArea from './DanceArea';
 
 const AppContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 70% 30%;
 `;
 
 class App extends React.Component {
