@@ -5,6 +5,7 @@ import Controls from './Controls';
 import DanceArea from './DanceArea';
 
 const AppContainer = styled.div`
+  background-image: url("assets/honeycomb.png");
   height: 100%;
   width: 100%;
   display: grid;
@@ -17,15 +18,16 @@ class App extends React.Component {
 
     this.state = {
       angle: 0,
-      distance: 0
+      distance: 0,
+      playing: false
     };
   }
 
   render() {
     return (
       <AppContainer>
-        <DanceArea angle={this.state.angle} distance={this.state.distance}/>
-        <Controls angle={this.state.angle} distance={this.state.distance} set={this.setState.bind(this)}/>
+        <DanceArea playing={this.state.playing} angle={this.state.angle} distance={this.state.distance}/>
+        <Controls playing={this.state.playing} angle={this.state.angle} distance={this.state.distance} set={this.setState.bind(this)}/>
       </AppContainer>
     );
   }
