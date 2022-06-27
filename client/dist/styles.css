@@ -3,3 +3,38 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.app-container {
+  background-image: url("assets/honeycomb.png");
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.dance-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bee-zone {
+  height: 25em;
+  width: 25em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#bee {
+  height: 4em;
+  width: auto;
+}
+
+.controls-container{
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+  background: rgba(255, 230, 145, .5);
+}
