@@ -19,15 +19,14 @@ class App extends React.Component {
     this.state = {
       angle: 0,
       distance: 0,
-      playing: false,
-      beeRef: null
+      playing: false
     };
   }
 
   render() {
     return (
       <AppContainer>
-        <DanceArea playing={this.state.playing} angle={this.state.angle} distance={this.state.distance} beeRef={this.beeRef}/>
+        <DanceArea playing={this.state.playing} angle={this.state.angle} distance={this.state.distance}/>
         <Controls playing={this.state.playing} angle={this.state.angle} distance={this.state.distance} set={this.setState.bind(this)}/>
       </AppContainer>
     );

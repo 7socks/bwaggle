@@ -22,22 +22,38 @@ const Bee = styled.img`
   width: auto;
 `;
 
-const DanceArea = ({angle, distance, playing, beeRef}) => {
-  return (
-    <DanceContainer>
-      <Stage width={200} height={200}>
-        <Layer>
-          <Ellipse
-            ref={(node) => { beeRef = node }}
-            radius={{x: 15, y: 25}}
-            x={100}
-            y={100}
-            fill="black"
-          />
-        </Layer>
-      </Stage>
-    </DanceContainer>
-  );
+class DanceArea extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
+  animate() {
+    this.ellipse.to({
+      fill: 'blue',
+      duration: 2
+    });
+  }
+
+  render() {
+    return (
+      <DanceContainer>
+        <Stage width={200} height={200}>
+          <Layer>
+            <Ellipse
+              ref={(node) => { this.ellipse = node }}
+              radius={{x: 15, y: 25}}
+              x={100}
+              y={100}
+              fill="black"
+              onClick={this.animate.bind(this)}
+            />
+          </Layer>
+        </Stage>
+      </DanceContainer>
+    );
+  }
 };
 
 export default DanceArea;
