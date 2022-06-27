@@ -1,43 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-
-const waggle = keyframes`
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(-25em);
-  }
-`;
-
-const loopLeft = keyframes`
-  from {
-    transform: translateY(-25em) translateX(0);
-  }
-
-  50% {
-    transform: translateX(12.5em) translateY(-12.5em);
-  }
-
-  to {
-    transform: translateY(0) translateX(0);
-  }
-`;
-
-const loopRight = keyframes`
-  from {
-    transform: translateY(-25em) translateX(0);
-  }
-
-  50% {
-    transform: translateX(-12.5em) translateY(-12.5em);
-  }
-
-  to {
-    transform: translateY(0) translateX(0);
-  }
-`;
+import { Stage, Layer, Ellipse } from 'react-konva';
 
 const DanceContainer = styled.div`
   display: flex;
@@ -45,7 +8,7 @@ const DanceContainer = styled.div`
   align-items: center;
 `;
 
-const BeeZone = styled.div`
+const BeeZone = styled(Stage)`
   height: 25em;
   width: 25em;
   display: flex;
@@ -57,19 +20,22 @@ const BeeZone = styled.div`
 const Bee = styled.img`
   height: 4em;
   width: auto;
-  animation-name: ${waggle}, ${loopLeft};
-  animation-duration: 3s, 3s, 3s;
-  animation-iteration-count: 1, 1, 1;
-  animation-fill-mode: both, both, both;
-  animation-play-state: ${({playing}) => { return playing ? 'running' : 'paused' }};
 `;
 
-const DanceArea = ({angle, distance, playing}) => {
+const DanceArea = ({angle, distance, playing, beeRef}) => {
   return (
     <DanceContainer>
-      <BeeZone>
-        <Bee playing={playing} angle={angle} distance={distance} src="assets/honeybee.png" alt="honeybee"/>
-      </BeeZone>
+      <Stage width={200} height={200}>
+        <Layer>
+          <Ellipse
+            ref={(node) => { beeRef = node }}
+            radius={{x: 15, y: 25}}
+            x={100}
+            y={100}
+            fill="black"
+          />
+        </Layer>
+      </Stage>
     </DanceContainer>
   );
 };
