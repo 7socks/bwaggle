@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Konva from 'konva';
 
 import animate from './animation.js';
 
@@ -26,18 +27,40 @@ $('#input-angle').prop({
   max: 359
 });
 
+// Animation elements
+var stage = new Konva.Stage({
+  container: 'dance-container',
+  width: 600,
+  height: 600
+});
+
+var layer = new Konva.Layer();
+
+var imageObject = new Image();
+imageObject.src = '/assets/honeybee.png';
+var bee = new Konva.Image({
+  image: imageObject,
+  x: 300,
+  y: 500,
+  width: 101.38,
+  height: 64
+});
+
+layer.add(bee);
+stage.add(layer);
+
 // Events
 const startStopAnimation = function(e) {
   if (e.target.innerText === 'Play') {
     e.target.innerText = 'Stop';
     $('.input-params').prop('disabled', true);
 
-    animate.create(params);
+    animate.create(params, layer, bee);
     animate.play();
   } else {
     e.target.innerText = 'Play';
     $('.input-params').prop('disabled', false);
-    animate.stop();
+    animate.stop(bee);
   }
 };
 
@@ -56,4 +79,3 @@ $('#input-angle').on('change', () => {
 $('#input-distance').on('change', () => {
   params.distance = $('#input-distance').prop('value');
 });
-
