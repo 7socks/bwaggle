@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Konva from 'konva';
 
 import animate from './animation.js';
+import dim from './dimensions.js';
 
 // $('#bee')
 // $('#btn-play')
@@ -30,8 +31,8 @@ $('#input-angle').prop({
 // Animation elements
 var stage = new Konva.Stage({
   container: 'dance-container',
-  width: 600,
-  height: 600
+  width: dim.CANVAS_WIDTH,
+  height: dim.CANVAS_HEIGHT
 });
 
 var layer = new Konva.Layer();
@@ -40,14 +41,50 @@ var imageObject = new Image();
 imageObject.src = '/assets/honeybee.png';
 var bee = new Konva.Image({
   image: imageObject,
-  x: 300,
-  y: 500,
-  width: 101.38,
-  height: 64
+  x: dim.MIDLINE,
+  y: dim.LOW_Y,
+  width: dim.TARGET_WIDTH,
+  height: dim.TARGET_HEIGHT
 });
 
 layer.add(bee);
 stage.add(layer);
+
+//test
+var line1 = new Konva.Line({
+  points: [300-101.38, 0, 300-101.38, 600],
+  stroke: 'blue',
+  strokewidth: 1
+});
+
+var line2 = new Konva.Line({
+  points: [300+101.38, 0, 300+101.38, 600],
+  stroke: 'blue',
+  strokewidth: 1
+});
+
+var line3 = new Konva.Line({
+  points: [300, 0, 300, 600],
+  stroke: 'red',
+  strokewidth: 1
+})
+
+var line4 = new Konva.Line({
+  points: [0, 200, 600, 200],
+  stroke: 'red',
+  strokewidth: 1
+})
+
+var line5 = new Konva.Line({
+  points: [0, 400, 600, 400],
+  stroke: 'red',
+  strokewidth: 1
+})
+
+var testLayer = new Konva.Layer();
+testLayer.add(line1, line2, line3, line4, line5);
+stage.add(testLayer);
+testLayer.moveToBottom();
 
 // Events
 const startStopAnimation = function(e) {
