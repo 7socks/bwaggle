@@ -81,7 +81,7 @@ var line5 = new Konva.Line({
   strokewidth: 1
 })
 
-var angle = -90 * (Math.PI / 180);
+var angle = -30 * (Math.PI / 180);
 var slant = -1;
 var point1 = new Konva.Circle({
   y: dim.RADIUS * Math.sin(angle) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y,
@@ -92,6 +92,7 @@ var point1 = new Konva.Circle({
 
 var testLayer = new Konva.Layer();
 testLayer.add(line1, line2, line3, line4, line5);
+//testLayer.add(point1);
 stage.add(testLayer);
 testLayer.moveToBottom();
 
@@ -110,11 +111,15 @@ const startStopAnimation = function(e) {
     $('.input-params').prop('disabled', true);
 
     animate.create(params, layer, bee);
+    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
+    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - params.angle))) - (dim.TARGET_WIDTH / 2);
+    bee.x(startX);
+    bee.y(startY);
     animate.play();
   } else {
     e.target.innerText = 'Play';
     $('.input-params').prop('disabled', false);
-    animate.stop(bee);
+    animate.stop(bee, params.angle);
   }
 };
 
@@ -126,7 +131,7 @@ $('#input-angle').on('change', () => {
   if (angle === '' || isNaN(Number(angle))) {
     $('#input-angle').prop('value', params.angle);
   } else {
-    params.angle = $('#input-angle').prop('value');
+    params.angle = Number($('#input-angle').prop('value'));
   }
 });
 
