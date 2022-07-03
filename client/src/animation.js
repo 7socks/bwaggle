@@ -14,11 +14,11 @@ animate.create = ({angle, distance}, layer, target) => {
   animate.anim = new Konva.Animation((frame) => {
     var cycleTime = frame.time % ((waggleDuration * 1000) + (arcDuration * 1000) + turnDuration);
     if (cycleTime <= waggleDuration * 1000) {
-      var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - angle))) - (dim.TARGET_WIDTH / 2);
-      var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
+      var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - angle)));
+      var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
 
-      var endX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (angle - 90)) * -1) - (dim.TARGET_WIDTH / 2);
-      var endY = dim.RADIUS * Math.sin((Math.PI / 180) * (angle - 90)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
+      var endX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (angle - 90)) * -1);
+      var endY = dim.RADIUS * Math.sin((Math.PI / 180) * (angle - 90)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
 
       var rateX = (endX - startX) / (waggleDuration * 1000);
       var rateY = (endY - startY) / (waggleDuration * 1000);
@@ -37,13 +37,14 @@ animate.create = ({angle, distance}, layer, target) => {
 
       var radians = (cycleTime - (turnDuration + waggleDuration * 1000)) * angleRate + angleStart;
 
-      var pointY = dim.RADIUS * Math.sin(radians) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
-      var pointX = dim.MIDLINE - (dim.RADIUS * Math.cos(radians) * slant) - (dim.TARGET_WIDTH / 2);
-
-      console.log(pointX, pointY)
+      var pointY = dim.RADIUS * Math.sin(radians) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
+      var pointX = dim.MIDLINE - (dim.RADIUS * Math.cos(radians) * slant);
 
       target.x(pointX);
       target.y(pointY);
+
+      var rotateRate = slant * -360 / (arcDuration * 1000);
+      target.rotate(frame.timeDiff * rotateRate);
     }
   }, layer);
 };
@@ -61,8 +62,9 @@ animate.play = () => {
 animate.stop = (target, angle) => {
   if (animate.anim !== null) {
     animate.anim.stop();
-    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
-    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - angle))) - (dim.TARGET_WIDTH / 2);
+    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
+    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - angle)));
+    target.rotation(angle);
     target.x(startX);
     target.y(startY);
   }

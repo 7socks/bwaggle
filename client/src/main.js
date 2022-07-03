@@ -41,10 +41,14 @@ var imageObject = new Image();
 imageObject.src = '/assets/honeybee.png';
 var bee = new Konva.Image({
   image: imageObject,
-  x: dim.MIDLINE - (dim.TARGET_WIDTH / 2),
-  y: dim.LOW_Y - (dim.TARGET_HEIGHT / 2),
+  x: dim.MIDLINE,
+  y: dim.LOW_Y,
   width: dim.TARGET_WIDTH,
-  height: dim.TARGET_HEIGHT
+  height: dim.TARGET_HEIGHT,
+  offset: {
+    x: dim.TARGET_WIDTH / 2,
+    y: dim.TARGET_HEIGHT / 2
+  }
 });
 
 layer.add(bee);
@@ -111,10 +115,11 @@ const startStopAnimation = function(e) {
     $('.input-params').prop('disabled', true);
 
     animate.create(params, layer, bee);
-    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y - (dim.TARGET_HEIGHT / 2);
-    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - params.angle))) - (dim.TARGET_WIDTH / 2);
+    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
+    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - params.angle)));
     bee.x(startX);
     bee.y(startY);
+    bee.rotation(params.angle)
     animate.play();
   } else {
     e.target.innerText = 'Play';
