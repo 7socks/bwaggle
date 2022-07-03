@@ -41,8 +41,8 @@ var imageObject = new Image();
 imageObject.src = '/assets/honeybee.png';
 var bee = new Konva.Image({
   image: imageObject,
-  x: dim.MIDLINE,
-  y: dim.LOW_Y,
+  x: dim.MIDLINE - (dim.TARGET_WIDTH / 2),
+  y: dim.LOW_Y - (dim.TARGET_HEIGHT / 2),
   width: dim.TARGET_WIDTH,
   height: dim.TARGET_HEIGHT
 });
@@ -81,10 +81,27 @@ var line5 = new Konva.Line({
   strokewidth: 1
 })
 
+var angle = -90 * (Math.PI / 180);
+var slant = -1;
+var point1 = new Konva.Circle({
+  y: dim.RADIUS * Math.sin(angle) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y,
+  x: dim.MIDLINE - (dim.RADIUS * Math.cos(angle) * slant),
+  radius: 2,
+  fill: 'green'
+});
+
 var testLayer = new Konva.Layer();
 testLayer.add(line1, line2, line3, line4, line5);
 stage.add(testLayer);
 testLayer.moveToBottom();
+
+var testBee = new Konva.Circle({
+  x: dim.MIDLINE,
+  y: dim.LOW_Y,
+  radius: 2,
+  fill: 'blue'
+});
+//layer.add(testBee);
 
 // Events
 const startStopAnimation = function(e) {
