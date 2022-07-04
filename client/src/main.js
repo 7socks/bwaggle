@@ -83,6 +83,9 @@ $('#input-angle').on('change', () => {
     $('#input-angle').prop('value', params.angle);
   } else {
     params.angle = Number($('#input-angle').prop('value'));
+    $('#lbl-angle').css({
+      transform: 'rotate('+ params.angle +'deg)'
+    });
   }
 });
 
