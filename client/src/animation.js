@@ -23,6 +23,20 @@ animate.create = ({angle, distance}, layer, target) => {
       var rateX = (endX - startX) / (waggleDuration * 1000);
       var rateY = (endY - startY) / (waggleDuration * 1000);
 
+      var waggleCount = Math.trunc(100 * (waggleDuration * 1000));
+      var wagglePeriod = (cycleTime % 10) / 10;
+      if (waggleDuration * 1000 - cycleTime < 10) {
+        target.rotation(angle);
+      } else {
+        if (wagglePeriod < 1/3) {
+          target.rotation(angle - 5);
+        } else if (wagglePeriod > 2/3) {
+          target.rotation(angle + 5);
+        } else {
+          target.rotation(angle);
+        }
+      }
+
       target.x(cycleTime * rateX + startX);
       target.y(cycleTime * rateY + startY);
     } else if (cycleTime <= (waggleDuration * 1000) + turnDuration) {
