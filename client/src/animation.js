@@ -42,8 +42,6 @@ animate.create = ({angle, distance}, layer, target) => {
 
       var pointY = dim.RADIUS * Math.sin(radians) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y + (offsetY * slant);
       var pointX = dim.MIDLINE - (dim.RADIUS * Math.cos(radians) * slant) + (offsetX * slant);
-      // for offset you have to calculate using angle each time, sin/cos for y/x with the default offset as hypotenuse
-      //console.log(dim.X_OFFSET)
 
       target.x(pointX);
       target.y(pointY);
