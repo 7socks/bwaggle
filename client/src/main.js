@@ -11,8 +11,12 @@ const params = {
 };
 
 // Static DOM Elements
+for (var i = 200; i <= 5000; i += 400) {
+  $('#ticks').append($(`<option value="${i}"></option>`));
+}
+
 $('#input-distance').prop({
-  step: 200,
+  step: 400,
   min: 200,
   max: 5000,
 });
@@ -84,4 +88,5 @@ $('#input-angle').on('change', () => {
 
 $('#input-distance').on('change', () => {
   params.distance = $('#input-distance').prop('value');
+  $('#lbl-distance').text(params.distance + 'm');
 });

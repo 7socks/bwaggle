@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>b.waggle</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css"/>
   </head>
   <body>
       <div class="app-container">
         <div id="dance-container">
-          <div class="bee-zone">
-            <img id="bee" src="assets/honeybee.png" alt="bee"/>
-          </div>
         </div>
         <div class="controls-container">
+          <div>
+            <label for="input-angle">Angle</label>
+            <span>SUN</span>
+          </div>
+          <div>
+            <input id="input-angle" class="input-params" type="number"/>
+            <span>-></span>
+          </div>
+
+          <div>
+            <label for="input-distance">Distance</label>
+            <span id="lbl-distance">200m</span>
+          </div>
+          <div>
+            <input id="input-distance" class="input-params" list="ticks" type="range"/>
+            <datalist id="ticks"></datalist>
+          </div>
+
           <button id="btn-play">Play</button>
-
-          <label for="input-angle">Angle from Sun</label>
-          <input id="input-angle" class="input-params" type="number"/>
-
-          <label for="input-distance">Distance</label>
-          <input id="input-distance" class="input-params" type="range"/>
         </div>
       </div>
     <script type="text/javascript" src="bundle.js"></script>
