@@ -20,7 +20,8 @@ $('#input-distance').prop({
 $('#input-angle').prop({
   value: 0,
   min: 0,
-  max: 359
+  max: 350,
+  step: 10
 });
 
 // Animation elements
