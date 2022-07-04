@@ -42,7 +42,7 @@ imageObject.src = '/assets/honeybee.png';
 var bee = new Konva.Image({
   image: imageObject,
   x: dim.MIDLINE,
-  y: dim.LOW_Y,
+  y: dim.START_Y,
   width: dim.TARGET_WIDTH,
   height: dim.TARGET_HEIGHT,
   offset: {
@@ -115,8 +115,8 @@ const startStopAnimation = function(e) {
     $('.input-params').prop('disabled', true);
 
     animate.create(params, layer, bee);
-    var startY = dim.RADIUS * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y;
-    var startX = dim.MIDLINE - (dim.RADIUS * Math.cos((Math.PI / 180) * (90 - params.angle)));
+    var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
+    var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - params.angle)));
     bee.x(startX);
     bee.y(startY);
     bee.rotation(params.angle)
