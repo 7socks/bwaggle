@@ -20,6 +20,7 @@ body {
   padding: .1em .3em;
   background:rgba(255, 255, 255, 0.25);
   color: white;
+  cursor: default;
 }
 
 #dance-container {
@@ -50,7 +51,7 @@ body {
   background: rgba(255, 200, 0, 0.9);
   color: white;
   font-size: 20px;
-
+  overflow-y: hidden;
 }
 
 .controls-container div {
@@ -84,10 +85,43 @@ button {
   color: white;
   border-radius: .5em;
   font-family: inherit;
-  margin-top: 1em;
+  margin: 1em 0;
 }
 
 button:hover, .btn-stop {
   background-color: white;
   color: orange;
+}
+
+#blurb {
+  margin: 1em 0;
+  padding: .8em;
+  border: 1px solid orange;
+  border-radius: .5em;
+  background-color:rgba(255, 255, 255, 0.6);
+  color: black;
+  font-size: 14px;
+  height: 300px;
+}
+
+#blurb p {
+  overflow-y: scroll;
+}
+
+.footer {
+  font-size: 14px;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  bottom: -.5em;
+  margin-bottom: 0;
+}
+
+.ft-link {
+  color: rgb(44, 96, 209);
+  text-decoration: none;
+}
+
+.ft-link:hover {
+  color: white;
 }
