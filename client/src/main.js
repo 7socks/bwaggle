@@ -62,17 +62,13 @@ const startStopAnimation = function(e) {
     $('.input-params').prop('disabled', true);
 
     animate.create(params, layer, bee);
-    var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - params.angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
-    var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - params.angle)));
-    bee.x(startX);
-    bee.y(startY);
-    bee.rotation(params.angle)
+    animate.reset();
     animate.play();
   } else {
     e.target.innerText = 'Play';
     $('#btn-play').removeClass('btn-stop');
     $('.input-params').prop('disabled', false);
-    animate.stop(bee, params.angle);
+    animate.stop();
   }
 };
 

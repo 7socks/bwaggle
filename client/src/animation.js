@@ -3,27 +3,35 @@ import Konva from 'konva';
 import dim from './dimensions.js';
 
 const animate = {
-  anim: null
+  anim: null,
+  distance: null,
+  angle: null,
+  target: null
 };
 
 animate.create = ({angle, distance}, layer, target) => {
+  animate.angle = angle;
+  animate.target = target;
+
   var waggleDuration = 0.1993 + (2.0018 / 0.6717) * (1 - (Math.E ** (-0.6717 * (distance / 1000))));
   var arcDuration = 1.3712 + 0.5238 * (distance / 1000);
-  var turnDuration = 0;
+
+  // Waggle phase constants
+  var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - angle)));
+  var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
+  var endX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (angle - 90)) * -1);
+  var endY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (angle - 90)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
+  var rateX = (endX - startX) / (waggleDuration * 1000);
+  var rateY = (endY - startY) / (waggleDuration * 1000);
+
+  // Arc phase constants
+  var angleRate = ((180 + dim.ANGLE_OFFSET * 2) * (Math.PI / 180)) / (arcDuration * 1000);
+  var offsetX = dim.OFFSET * Math.cos(angle * (Math.PI / 180));
+  var offsetY = dim.OFFSET * Math.sin(angle * (Math.PI / 180));
 
   animate.anim = new Konva.Animation((frame) => {
-    var cycleTime = frame.time % ((waggleDuration * 1000) + (arcDuration * 1000) + turnDuration);
+    var cycleTime = frame.time % ((waggleDuration * 1000) + (arcDuration * 1000));
     if (cycleTime <= waggleDuration * 1000) {
-      var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - angle)));
-      var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
-
-      var endX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (angle - 90)) * -1);
-      var endY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (angle - 90)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
-
-      var rateX = (endX - startX) / (waggleDuration * 1000);
-      var rateY = (endY - startY) / (waggleDuration * 1000);
-
-      var waggleCount = Math.trunc(100 * (waggleDuration * 1000));
       var wagglePeriod = (cycleTime % 10) / 10;
       if (waggleDuration * 1000 - cycleTime < 10) {
         target.rotation(angle);
@@ -39,20 +47,14 @@ animate.create = ({angle, distance}, layer, target) => {
 
       target.x(cycleTime * rateX + startX);
       target.y(cycleTime * rateY + startY);
-    } else if (cycleTime <= (waggleDuration * 1000) + turnDuration) {
     } else {
       var slant = 1;
-      if (frame.time % (((waggleDuration * 1000) + (arcDuration * 1000) + turnDuration) * 2) > waggleDuration * 1000 + arcDuration * 1000 + turnDuration) {
+      if (frame.time % (((waggleDuration * 1000) + (arcDuration * 1000)) * 2) > waggleDuration * 1000 + arcDuration * 1000) {
         slant = -1;
       }
 
-      var angleRate = ((180 + dim.ANGLE_OFFSET * 2) * (Math.PI / 180)) / (arcDuration * 1000);
       var angleStart = (-90 - (angle - dim.ANGLE_OFFSET) * slant) * (Math.PI / 180);
-
-      var radians = (cycleTime - (turnDuration + waggleDuration * 1000)) * angleRate + angleStart;
-
-      var offsetX = dim.OFFSET * Math.cos(angle * (Math.PI / 180));
-      var offsetY = dim.OFFSET * Math.sin(angle * (Math.PI / 180));
+      var radians = (cycleTime - (waggleDuration * 1000)) * angleRate + angleStart;
 
       var pointY = dim.RADIUS * Math.sin(radians) + ((dim.LOW_Y - dim.PEAK_Y) / 2) + dim.PEAK_Y + (offsetY * slant);
       var pointX = dim.MIDLINE - (dim.RADIUS * Math.cos(radians) * slant) + (offsetX * slant);
@@ -67,7 +69,11 @@ animate.create = ({angle, distance}, layer, target) => {
 };
 
 animate.reset = () => {
-  animate.anim = null;
+  var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - animate.angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
+  var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - animate.angle)));
+  animate.target.rotation(animate.angle);
+  animate.target.x(startX);
+  animate.target.y(startY);
 };
 
 animate.play = () => {
@@ -76,14 +82,10 @@ animate.play = () => {
   }
 };
 
-animate.stop = (target, angle) => {
+animate.stop = () => {
   if (animate.anim !== null) {
+    animate.reset();
     animate.anim.stop();
-    var startY = (dim.WAGGLE_LENGTH / 2) * Math.sin((Math.PI / 180) * (90 - angle)) + ((dim.START_Y - dim.END_Y) / 2) + dim.END_Y;
-    var startX = dim.MIDLINE - ((dim.WAGGLE_LENGTH / 2) * Math.cos((Math.PI / 180) * (90 - angle)));
-    target.rotation(angle);
-    target.x(startX);
-    target.y(startY);
   }
 };
 
