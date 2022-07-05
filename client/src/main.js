@@ -35,7 +35,7 @@ var stage = new Konva.Stage({
   height: dim.CANVAS_HEIGHT
 });
 
-var layer = new Konva.Layer();
+var beeLayer = new Konva.Layer();
 
 var imageObject = new Image();
 imageObject.src = '/assets/honeybee.png';
@@ -51,8 +51,39 @@ var bee = new Konva.Image({
   }
 });
 
-layer.add(bee);
-stage.add(layer);
+beeLayer.add(bee);
+stage.add(beeLayer);
+
+var pathLayer = new Konva.Layer();
+
+var wagglePoints = [];
+var shift = 0;
+var zigzag = true;
+for (var i = dim.START_Y; i >= dim.END_Y; i -= (dim.START_Y - dim.END_Y) / 20) {
+  wagglePoints = wagglePoints.concat([dim.MIDLINE + shift, i]);
+
+  zigzag ? shift -= 10 : shift += 10;
+  if (shift === -10) {
+    zigzag = false;
+  } else if (shift === 10) {
+    zigzag = true;
+  }
+}
+var wagglePath = new Konva.Line({
+  points: wagglePoints,
+  stroke: 'white',
+  strokeWidth: 2,
+  tension: 0.4
+});
+
+var leftArcPath = new Konva.Arc({
+});
+var rightArcPath = new Konva.Arc({
+});
+
+pathLayer.add(wagglePath, leftArcPath, rightArcPath);
+stage.add(pathLayer);
+pathLayer.moveToBottom();
 
 // Events
 const startStopAnimation = function(e) {
@@ -61,7 +92,7 @@ const startStopAnimation = function(e) {
     $('#btn-play').addClass('btn-stop');
     $('.input-params').prop('disabled', true);
 
-    animate.create(params, layer, bee);
+    animate.create(params, beeLayer, bee);
     animate.reset();
     animate.play();
   } else {
