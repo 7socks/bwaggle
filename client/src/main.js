@@ -23,8 +23,8 @@ $('#input-distance').prop({
 
 $('#input-angle').prop({
   value: 0,
-  min: 0,
-  max: 350,
+  min: -10,
+  max: 360,
   step: 10
 });
 
@@ -82,10 +82,19 @@ $('#input-angle').on('change', () => {
   if (angle === '' || isNaN(Number(angle))) {
     $('#input-angle').prop('value', params.angle);
   } else {
-    params.angle = Number($('#input-angle').prop('value'));
+    params.angle = Number(angle);
     $('#lbl-angle').css({
       transform: 'rotate('+ params.angle +'deg)'
     });
+  }
+});
+
+$('#input-angle').on('input', (event) => {
+  var angle = $('#input-angle').prop('value');
+  if (angle < 0) {
+    $('#input-angle').prop('value', 360 + Number(angle));
+  } else if (angle >= 360) {
+    $('#input-angle').prop('value', Number(angle) % 360);
   }
 });
 
