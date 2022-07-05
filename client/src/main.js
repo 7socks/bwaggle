@@ -58,6 +58,7 @@ stage.add(layer);
 const startStopAnimation = function(e) {
   if (e.target.innerText === 'Play') {
     e.target.innerText = 'Stop';
+    $('#btn-play').addClass('btn-stop');
     $('.input-params').prop('disabled', true);
 
     animate.create(params, layer, bee);
@@ -69,6 +70,7 @@ const startStopAnimation = function(e) {
     animate.play();
   } else {
     e.target.innerText = 'Play';
+    $('#btn-play').removeClass('btn-stop');
     $('.input-params').prop('disabled', false);
     animate.stop(bee, params.angle);
   }
