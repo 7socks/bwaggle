@@ -1,64 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>b.waggle</title>
+<head>
+  <title>b.waggle</title>
 
-    <script src="https://kit.fontawesome.com/cbabf42fdb.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/cbabf42fdb.js" crossorigin="anonymous"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css"/>
-  </head>
-  <body>
-      <div class="app-container">
-        <div id="header">b.waggle</div>
-        <div id="dance-container">
-        </div>
-        <div class="controls-container">
-          <div>
-            <label for="input-angle">Angle</label>
-            <span><i class="fa-solid fa-sun"></i></span>
-          </div>
-          <div>
-            <input id="input-angle" class="input-params" type="number"/>
-            <span><i id="lbl-angle" class="fa-solid fa-up-long"></i></span>
-          </div>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-          <div>
-            <label for="input-distance">Distance</label>
-            <span id="lbl-distance">200m</span>
-          </div>
-          <div>
-            <input id="input-distance" class="input-params" list="ticks" type="range"/>
-            <datalist id="ticks"></datalist>
-          </div>
-
-          <button id="btn-play">Play</button>
-
-          <div id="blurb">
-            <p>
-              The "waggle dance" is used by foraging honeybees to
-              communicate the location of a food source to other bees in
-              the hive.
-              <br/><br/>
-              Performed on a vertical wall, the angle relative to the top
-              indicates the angle of the food source from the sun. The
-              duration of the dance cycle indicates the distance.
-              <br/><br/>
-              This interactive demonstration is based on analysis of real
-              data collected from honeybees. Thanks go to
-              <a href="https://peerj.com/articles/11187/">
-              P.L. Kohl and B. Rutschmann</a> for their work.
-            </p>
-          </div>
-
-          <div class="footer">
-            <a href="https://github.com/7socks/bwaggle" class="ft-link">GitHub</a>
-          </div>
-        </div>
+<body>
+  <div class="app-container">
+    <div id="header">b.waggle</div>
+    <div id="dance-container">
+    </div>
+    <div class="controls-container">
+      <div>
+        <label for="input-angle">Angle</label>
+        <span><i class="fa-solid fa-sun"></i></span>
       </div>
-    <script type="text/javascript" src="bundle.js"></script>
-  </body>
+      <div>
+        <input id="input-angle" class="input-params" type="number" />
+        <span><i id="lbl-angle" class="fa-solid fa-up-long"></i></span>
+      </div>
+
+      <div>
+        <label for="input-distance">Distance</label>
+        <span id="lbl-distance">200m</span>
+      </div>
+      <div>
+        <input id="input-distance" class="input-params" list="ticks" type="range" />
+        <datalist id="ticks"></datalist>
+      </div>
+
+
+      <div id="centered-control-box">
+        <button id="btn-play">Play</button>
+
+        <label for="opt-trace" class="checkbtn">
+          <input type="checkbox" id="opt-trace" />
+          <span>Show path</span>
+        </label>
+      </div>
+
+      <div id="blurb">
+        <p>
+          The "waggle dance" is used by foraging honeybees to
+          communicate the location of a food source to other bees in
+          the hive.
+          <br /><br />
+          Performed on a vertical wall, the angle relative to the top
+          indicates the angle of the food source from the sun. The
+          duration of the dance cycle indicates the distance.
+          <br /><br />
+          This interactive demonstration is based on analysis of real
+          data collected from honeybees. Thanks go to
+          <a href="https://peerj.com/articles/11187/">
+            P.L. Kohl and B. Rutschmann</a> for their work.
+        </p>
+      </div>
+
+      <div class="footer">
+        <a href="https://github.com/7socks/bwaggle" class="ft-link">GitHub</a>
+        <span>7socks</span>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="bundle.js"></script>
+</body>
 </html>
