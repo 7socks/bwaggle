@@ -52,7 +52,7 @@ body {
   width: 3em;
   border: 1px solid white;
   border-radius: .5em;
-  outline-color: orange;
+  outline-color: #ff8c00;
 }
 
 #input-distance {
@@ -73,7 +73,7 @@ button {
   width: 3em;
   height: 1.5em;
   border: 1px solid white;
-  background-color: orange;
+  background-color: #ff8c00;
   color: white;
   border-radius: .5em;
   font-family: inherit;
@@ -82,7 +82,7 @@ button {
 
 button:hover, .btn-stop {
   background-color: white;
-  color: orange;
+  color: #ff8c00;
 }
 
 .checkbtn {
@@ -112,7 +112,7 @@ input[type="checkbox"]::before {
   width: .5em;
   height: .5em;
   transform: scale(0);
-  box-shadow: inset 1em 1em orange;
+  box-shadow: inset 1em 1em #ff8c00;
   background-color: white;
 }
 
@@ -124,10 +124,6 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked::after {
   width: .5em;
   height: .5em;
-}
-
-input[type="checkbox"]:focus {
-  outline: 2px solid orange;
 }
 
 #blurb {
