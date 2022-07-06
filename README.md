@@ -9,7 +9,8 @@ The main elements of the waggle dance are its duration and angle, which correspo
 respectively.
 
 As an interactive demonstration of the honeybee waggle dance, b.waggle generates an animated path based on user input. The user controls
-the angle relative to the sun and the distance (between 200-5000m), indirectly controlling the animated bee's path and speed.
+the angle relative to the sun and the distance (between 200-5000m), indirectly controlling the animated bee's path and speed. There is an option
+to view an outline of the generated dance path.
 
 The simulated movement was calculated based on analysis of data collected from honeybees and published in an academic paper (Kohl & Rutschmann, 2021).
 The duration of the waggle and return phase are each calculated separately based on their findings. As of this version, the frequency of the "waggle"
