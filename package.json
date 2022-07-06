@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "bwaggle",
   "version": "1.0.0",
-  "description": "",
+  "description": "interactive demonstration of honeybee waggle dance",
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack --mode development -w",
@@ -9,7 +9,7 @@
     "build": "webpack --mode production",
     "start": "node server/index.js"
   },
-  "author": "",
+  "author": "7socks",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
