@@ -60,6 +60,13 @@ body {
   width: 100%;
 }
 
+#centered-control-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
 button {
   align-self: center;
   font-size: 24px;
@@ -70,7 +77,7 @@ button {
   color: white;
   border-radius: .5em;
   font-family: inherit;
-  margin: 1em 0;
+  margin: .5em 0;
 }
 
 button:hover, .btn-stop {
