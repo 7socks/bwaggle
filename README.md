@@ -2,6 +2,8 @@
 
 An interactive demonstration of the honeybee "waggle dance", presented via a single-page web app.
 
+![screenshot](bwaggle_screenshot.png)
+
 ## Description
 The "waggle dance" is a method of communication used by honeybees to indicate the location of a food source to other bees in the hive. It is performed
 on a vertical wall and consists of two phases: a straight-line waggle phase, and a return phase in which the bee loops back to the starting position.
