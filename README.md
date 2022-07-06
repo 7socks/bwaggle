@@ -21,7 +21,7 @@ and the exact shape of the dance path are not informed by research and are not n
 Built with [jQuery](https://jquery.com) and [Konva](https://konvajs.org).
 
 ## Access
-This app is currently deployed via Heroku at [b.waggle.herokuapp.com](https://b.waggle.herokuapp.com). Mobile support is not guaranteed.
+This app is currently deployed via Heroku at [bwaggle.herokuapp.com](https://bwaggle.herokuapp.com). Mobile support is not guaranteed.
 
 ## References
 Kohl, P. L., &amp; Rutschmann, B. (2021). Honey bees communicate distance via non-linear waggle duration functions. PeerJ, 9. https://doi.org/10.7717/peerj.11187 
