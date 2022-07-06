@@ -54,13 +54,15 @@ var bee = new Konva.Image({
 beeLayer.add(bee);
 stage.add(beeLayer);
 
-var pathLayer = new Konva.Layer();
+var pathLayer = new Konva.Layer({
+  visible: false
+});
 
 var wagglePoints = [];
 var shift = 0;
 var zigzag = true;
 for (var i = dim.START_Y; i >= dim.END_Y; i -= (dim.START_Y - dim.END_Y) / 20) {
-  wagglePoints = wagglePoints.concat([dim.MIDLINE + shift, i]);
+  wagglePoints = wagglePoints.concat([shift, i - (dim.END_Y + (dim.START_Y - dim.END_Y) / 2)]);
 
   zigzag ? shift -= 10 : shift += 10;
   if (shift === -10) {
@@ -70,18 +72,46 @@ for (var i = dim.START_Y; i >= dim.END_Y; i -= (dim.START_Y - dim.END_Y) / 20) {
   }
 }
 var wagglePath = new Konva.Line({
+  x: dim.MIDLINE,
+  y: dim.END_Y + (dim.START_Y - dim.END_Y) / 2,
   points: wagglePoints,
   stroke: 'white',
   strokeWidth: 2,
-  tension: 0.4
+  tension: 0.4,
+  dash: [20, 5]
 });
 
-var leftArcPath = new Konva.Arc({
-});
-var rightArcPath = new Konva.Arc({
+var leftArcPath = new Konva.Line({
+  x: dim.MIDLINE,
+  y: dim.END_Y + (dim.START_Y - dim.END_Y) / 2,
+  points: [dim.OFFSET, dim.OFFSET - (dim.START_Y - dim.END_Y) / 2, dim.OFFSET - dim.RADIUS, 0, dim.OFFSET, (dim.START_Y - dim.END_Y) / 2 - dim.OFFSET],
+  stroke: 'white',
+  strokeWidth: 2,
+  tension: 1,
+  dash: [15, 10]
 });
 
-pathLayer.add(wagglePath, leftArcPath, rightArcPath);
+var rightArcPath = new Konva.Line({
+  x: dim.MIDLINE,
+  y: dim.END_Y + (dim.START_Y - dim.END_Y) / 2,
+  points: [-1 * dim.OFFSET, dim.OFFSET - (dim.START_Y - dim.END_Y) / 2, dim.RADIUS - dim.OFFSET, 0, -1 * dim.OFFSET, (dim.START_Y - dim.END_Y) / 2 - dim.OFFSET],
+  stroke: 'white',
+  strokeWidth: 2,
+  tension: 1,
+  dash: [15, 10]
+});
+
+var pathGroup = new Konva.Group({
+  x: dim.MIDLINE,
+  y: dim.END_Y + (dim.START_Y - dim.END_Y) / 2,
+  offset: {
+    x: dim.MIDLINE,
+    y: dim.END_Y + (dim.START_Y - dim.END_Y) / 2
+  },
+});
+pathGroup.add(wagglePath, leftArcPath, rightArcPath);
+
+pathLayer.add(pathGroup);
 stage.add(pathLayer);
 pathLayer.moveToBottom();
 
@@ -103,8 +133,17 @@ const startStopAnimation = function(e) {
   }
 };
 
+const showHidePath = function(e) {
+  if (e.target.checked) {
+    pathLayer.visible(true);
+  } else {
+    pathLayer.visible(false);
+  }
+};
+
 
 $('#btn-play').on('click', startStopAnimation);
+$('#opt-trace').on('change', showHidePath);
 
 $('#input-angle').on('change', () => {
   let angle = $('#input-angle').prop('value');
@@ -116,6 +155,8 @@ $('#input-angle').on('change', () => {
       transform: 'rotate('+ params.angle +'deg)'
     });
   }
+
+  pathGroup.rotation(params.angle);
 });
 
 $('#input-angle').on('input', (event) => {
