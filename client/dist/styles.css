@@ -29,25 +29,10 @@ body {
   align-items: center;
 }
 
-.bee-zone {
-  height: 25em;
-  width: 25em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-#bee {
-  height: 4em;
-  width: auto;
-}
-
 .controls-container{
   display: flex;
   flex-direction: column;
   padding: 3em;
-  /* background: rgba(255, 230, 145, .5); */
   background: rgba(255, 200, 0, 0.9);
   color: white;
   font-size: 20px;
